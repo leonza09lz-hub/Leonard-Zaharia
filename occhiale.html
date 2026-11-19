@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- il titolo vero lo scrive JavaScript con il nome dell'occhiale -->
+  <title>Occhiale – Sguardi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="css/occhiali.css">
+
+  <!-- Three.js da CDN, come in index.html -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- PAGINA DELL'OCCHIALE: è la stessa per tutti gli occhiali.
+       Quale occhiale mostrare lo dice l'indirizzo: occhiale.html?modello=NOMEFILE.glb&nome=NOME -->
+
+    <header class="barra">
+        <a class="marchio" href="index.html">
+            <svg viewBox="0 0 200 80" aria-hidden="true">
+                <circle cx="50" cy="44" r="28" fill="none" stroke="currentColor" stroke-width="10"/>
+                <circle cx="150" cy="44" r="28" fill="none" stroke="currentColor" stroke-width="10"/>
+                <path d="M78 40 Q100 24 122 40" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+            </svg>
+            sguardi
+        </a>
+        <ul class="barra-link" id="barra-link">
+            <li><a href="index.html#configura">Configura</a></li>
+            <li><a href="index.html#catalogo">Catalogo</a></li>
+            <li><a href="index.html#prova-invito">Prova virtuale</a></li>
+        </ul>
+        <button type="button" class="bottone bottone-verde apri-prova">Provalo ora</button>
+        <!-- il tasto del menu: si vede solo su telefono e tablet (barra.js) -->
+        <button type="button" class="barra-menu" aria-label="Apri il menu" aria-expanded="false" aria-controls="barra-link">
+            <span></span><span></span>
+        </button>
+    </header>
+
+    <main class="dettaglio">
+        <a class="torna" href="index.html#catalogo">← Tutti gli occhiali</a>
+        <h1 class="dettaglio-titolo" data-nome>Occhiale</h1>
+
+        <div class="dettaglio-griglia">
+
+            <!-- il visore: qui la rotella fa zoom -->
+            <div class="dettaglio-palco">
+                <div id="visore" class="visore">
+                    <p class="visore-segnaposto">Caricamento del modello 3D…</p>
+                </div>
+                <div class="palco-alto">
+                    <span class="palco-contatore">Modello 3D · <span class="palco-capitolo">trascina per girare</span></span>
+                </div>
+                <div class="opzione palco-comandi">
+                    <h3 class="opzione-titolo">Vista <span class="opzione-valore" hidden>Libera</span></h3>
+                    <div class="forme">
+                        <button type="button" class="forma vista" data-vista="fronte" data-name="Fronte">Fronte</button>
+                        <button type="button" class="forma vista" data-vista="tre-quarti" data-name="Tre quarti">¾</button>
+                        <button type="button" class="forma vista" data-vista="lato" data-name="Lato">Lato</button>
+                        <button type="button" class="forma vista" data-vista="alto" data-name="Dall'alto">Alto</button>
+                        <button type="button" class="forma esplodi">Esplodi</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- il pannello con le scelte -->
+            <div class="pannello">
+                <button type="button" class="bottone bottone-verde apri-prova">Provalo con la telecamera <span class="freccia">→</span></button>
+
+                <!-- tutte le scelte in un solo blocco: abbinamenti, colori e calibro -->
+                <div class="colori">
+                <div class="opzione riga-colore">
+                    <h2 class="opzione-titolo">Abbinamenti <span class="opzione-valore">First</span></h2>
+                    <div class="forme">
+                        <button type="button" class="forma abbinamento selected" data-name="First"
+                            data-montatura="Nero" data-lenti="Fumo" data-aste="Nero" data-ponte="Argento">First</button>
+                        <button type="button" class="forma abbinamento" data-name="Second"
+                            data-montatura="Tartaruga" data-lenti="Marrone" data-aste="Tartaruga" data-ponte="Oro">Second</button>
+                        <button type="button" class="forma abbinamento" data-name="Third"
+                            data-montatura="Blu notte" data-lenti="Blu" data-aste="Argento" data-ponte="Canna di fucile">Third</button>
+                    </div>
+                </div>
+
+                <div class="opzione riga-colore">
+                    <h2 class="opzione-titolo">Montatura <span class="opzione-valore">Nero</span></h2>
+                    <div class="campioni" data-parte="montatura">
+                        <button type="button" class="campione selected" data-color="#1f1f1f" data-name="Nero" aria-label="Nero" style="background-color: #1f1f1f;"></button>
+                        <button type="button" class="campione" data-color="#6b4226" data-name="Tartaruga" aria-label="Tartaruga" style="background-color: #6b4226;"></button>
+                        <button type="button" class="campione" data-color="#c8922f" data-name="Miele" aria-label="Miele" style="background-color: #c8922f;"></button>
+                        <button type="button" class="campione" data-color="#2b3a4f" data-name="Blu notte" aria-label="Blu notte" style="background-color: #2b3a4f;"></button>
+                        <button type="button" class="campione" data-color="#b5603a" data-name="Terracotta" aria-label="Terracotta" style="background-color: #b5603a;"></button>
+                        <button type="button" class="campione" data-color="#0ae448" data-name="Verde acido" aria-label="Verde acido" style="background-color: #0ae448;"></button>
+                    </div>
+                </div>
+
+                <div class="opzione riga-colore">
+                    <h2 class="opzione-titolo">Lenti <span class="opzione-valore">Fumo</span></h2>
+                    <div class="campioni" data-parte="lenti">
+                        <button type="button" class="campione selected" data-color="#3a3a3a" data-name="Fumo" aria-label="Fumo" style="background-color: #3a3a3a;"></button>
+                        <button type="button" class="campione" data-color="#4f5d45" data-name="Verde" aria-label="Verde" style="background-color: #4f5d45;"></button>
+                        <button type="button" class="campione" data-color="#6b4a33" data-name="Marrone" aria-label="Marrone" style="background-color: #6b4a33;"></button>
+                        <button type="button" class="campione" data-color="#3d5a80" data-name="Blu" aria-label="Blu" style="background-color: #3d5a80;"></button>
+                        <button type="button" class="campione" data-color="#c99a9a" data-name="Rosa" aria-label="Rosa" style="background-color: #c99a9a;"></button>
+                        <button type="button" class="campione" data-color="#d9b23a" data-name="Giallo" aria-label="Giallo" style="background-color: #d9b23a;"></button>
+                    </div>
+                </div>
+
+                <div class="opzione riga-colore">
+                    <h2 class="opzione-titolo">Aste <span class="opzione-valore">Nero</span></h2>
+                    <div class="campioni" data-parte="aste">
+                        <button type="button" class="campione selected" data-color="#1f1f1f" data-name="Nero" aria-label="Nero" style="background-color: #1f1f1f;"></button>
+                        <button type="button" class="campione" data-color="#6b4226" data-name="Tartaruga" aria-label="Tartaruga" style="background-color: #6b4226;"></button>
+                        <button type="button" class="campione" data-color="#c9a54c" data-name="Oro" aria-label="Oro" style="background-color: #c9a54c;"></button>
+                        <button type="button" class="campione" data-color="#b8bcc2" data-name="Argento" aria-label="Argento" style="background-color: #b8bcc2;"></button>
+                        <button type="button" class="campione" data-color="#6b2e34" data-name="Bordeaux" aria-label="Bordeaux" style="background-color: #6b2e34;"></button>
+                        <button type="button" class="campione" data-color="#9d95ff" data-name="Lilla" aria-label="Lilla" style="background-color: #9d95ff;"></button>
+                    </div>
+                </div>
+
+                <div class="opzione riga-colore">
+                    <h2 class="opzione-titolo">Ponte <span class="opzione-valore">Argento</span></h2>
+                    <div class="campioni" data-parte="ponte">
+                        <button type="button" class="campione" data-color="#c9a54c" data-name="Oro" aria-label="Oro" style="background-color: #c9a54c;"></button>
+                        <button type="button" class="campione selected" data-color="#b8bcc2" data-name="Argento" aria-label="Argento" style="background-color: #b8bcc2;"></button>
+                        <button type="button" class="campione" data-color="#4a4d52" data-name="Canna di fucile" aria-label="Canna di fucile" style="background-color: #4a4d52;"></button>
+                        <button type="button" class="campione" data-color="#b87333" data-name="Rame" aria-label="Rame" style="background-color: #b87333;"></button>
+                        <button type="button" class="campione" data-color="#1f1f1f" data-name="Nero" aria-label="Nero" style="background-color: #1f1f1f;"></button>
+                    </div>
+                </div>
+
+                <!-- il calibro sta nello stesso blocco dei colori -->
+                <div class="opzione riga-colore">
+                    <h2 class="opzione-titolo">Calibro <span class="opzione-valore">M · 51 mm</span></h2>
+                    <div class="misure">
+                        <button type="button" class="misura" data-size="47" data-name="S · 47 mm">S · 47</button>
+                        <button type="button" class="misura selected" data-size="51" data-name="M · 51 mm">M · 51</button>
+                        <button type="button" class="misura" data-size="55" data-name="L · 55 mm">L · 55</button>
+                    </div>
+                </div>
+                </div>
+
+                <!-- due testi: uno per chi usa il mouse, uno per chi usa il dito (li sceglie il CSS) -->
+                <p class="nota">
+                    <span class="solo-mouse">Trascina per girare l'occhiale, usa la rotella per avvicinarti, doppio clic per raddrizzarlo.</span>
+                    <span class="solo-tocco">Trascina col dito per girare l'occhiale, allarga due dita per avvicinarti, tocca due volte per raddrizzarlo.</span>
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="piede">
+        <div class="piede-righe">
+            <span>Catalogo occhiali 3D · 2026</span>
+            <a href="index.html#catalogo">← Torna al catalogo</a>
+        </div>
+    </footer>
+
+    <!-- ===== la prova con la telecamera, come in index.html ===== -->
+    <div id="prova" class="prova" hidden>
+        <div class="prova-palco">
+            <video class="prova-video" playsinline muted></video>
+            <canvas class="prova-tela"></canvas>
+        </div>
+        <p class="prova-nome"></p>
+        <p class="prova-avviso"></p>
+        <button type="button" class="prova-chiudi">Chiudi</button>
+        <button type="button" class="prova-scatta" aria-label="Scatta una foto"></button>
+        <div class="prova-foto" hidden>
+            <img alt="La tua foto con l'occhiale">
+            <div class="prova-foto-tasti">
+                <a class="prova-salva" download="occhiale.png">Salva</a>
+                <button type="button" class="prova-scarta">Chiudi</button>
+            </div>
+            <form class="prova-email">
+                <input type="email" name="email" placeholder="La tua email" required>
+                <button type="submit">Invia</button>
+            </form>
+            <p class="prova-email-stato"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script>
+        // un'entrata semplice: titolo, visore e pannello arrivano uno dopo l'altro
+        if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+            gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.1 } })
+                .from('.torna', { y: 20, autoAlpha: 0 })
+                .from('.dettaglio-titolo', { y: 80, autoAlpha: 0 }, 0.1)
+                .from('.dettaglio-palco', { scale: 0.92, autoAlpha: 0 }, 0.25)
+                .from('.pannello > *', { x: 40, autoAlpha: 0, stagger: 0.06 }, 0.35);
+        }
+        // un piccolo "salto" quando scegli qualcosa
+        document.querySelectorAll('.campione, .forma, .misura').forEach(function(b) {
+            b.addEventListener('click', function() {
+                gsap.fromTo(b, { scale: 0.85 }, { scale: 1, duration: 0.5, ease: 'back.out(3)', clearProps: 'scale' });
+            });
+        });
+    </script>
+    <script src="js/barra.js"></script>
+    <script type="module" src="js/configuratore.js"></script>
+</body>
+</html>
